@@ -8,6 +8,7 @@
   "license": "MIT",
   "homepage": "https://github.com/jteppinette/get-payed",
   "dependencies": {
-    "angular": "^1.5.8"
+    "angular": "^1.5.8",
+    "angular-material": "^1.0.9"
   }
 }
