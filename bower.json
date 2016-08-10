@@ -1,0 +1,13 @@
+{
+  "name": "get-payed",
+  "description": "a bitcoin-acceptance service with user accounts",
+  "main": "app/index.html",
+  "authors": [
+    "Joshua Taylor Eppinette"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/jteppinette/get-payed",
+  "dependencies": {
+    "angular": "^1.5.8"
+  }
+}

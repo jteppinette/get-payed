@@ -12,42 +12,31 @@ var gulp = require("gulp"),
     bowerFiles = require("main-bower-files");
 
 // index
-gulp.task("index:build", function() {
+gulp.task("index", function() {
     gulp.src("./app/index.html")
         .pipe(plumber())
         .pipe(inject(gulp.src(bowerFiles(), {"base": "./build/bower_components", "read": false}),
-                     {"name": "bower", "relative": true}))
+                     {"name": "bower", "ignorePath": "build"}))
         .pipe(gulp.dest("./build/"));
 });
 
-gulp.task("index:watch", ["index:build"], function() {
-    connect.reload();
-});
-
-
 // assets
-gulp.task("assets:build", function() {
+gulp.task("assets", function() {
     gulp.src("./app/assets/*")
         .pipe(plumber())
         .pipe(gulp.dest("./build/assets"));
 });
 
-
 // sass
-gulp.task("sass:build", function() {
+gulp.task("sass", function() {
     gulp.src("./app/sass/main.scss")
         .pipe(plumber())
         .pipe(sass())
         .pipe(gulp.dest("./build/"));
 });
 
-gulp.task("sass:watch", ["sass:build"], function() {
-    connect.reload();
-});
-
-
 // js
-gulp.task("js:build", function() {
+gulp.task("js", function() {
     gulp.src("./app/**/*.js")
         .pipe(plumber())
         .pipe(eslint())
@@ -57,20 +46,14 @@ gulp.task("js:build", function() {
         .pipe(gulp.dest("./build/"));
 });
 
-gulp.task("js:watch", ["js:build"], function() {
-    connect.restart();
-});
-
-
 // main tasks
-gulp.task("build", ["index:build", "js:build", "sass:build", "assets:build"]);
+gulp.task("build", ["index", "js", "sass", "assets"]);
 
 gulp.task("watch", ["build"], function() {
-    gulp.watch("./app/index.html", {interval: 500}, ["index:watch"]);
-    gulp.watch("./app/**/*.scss", {interval: 500}, ["sass:watch"]);
-    gulp.watch("./app/**/*.js", {interval: 500}, ["js:watch"]);
+    gulp.watch("./app/index.html", {interval: 500}, ["index"]);
+    gulp.watch("./app/**/*.scss", {interval: 500}, ["sass"]);
+    gulp.watch("./app/**/*.js", {interval: 500}, ["js"]);
 });
-
 
 // default task
 gulp.task("default", ["build"]);
