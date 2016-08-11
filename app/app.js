@@ -1,8 +1,22 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular
-    .module('app', [])
-    .controller('AppController', AppController);
+    angular
+        .module('app', ['ui.bootstrap', 'ui.router', 'templates'])
+        .config(Config);
 
-function AppController() {
-}
+    function Config($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise("/login");
+        $stateProvider
+            .state('auth', {
+                templateUrl: "auth/auth.html",
+                abstract: true
+            })
+                .state('auth.login', {
+                    url: "/login",
+                    templateUrl: "auth/login/login.html"
+                }) ;
+    }
+
+
+}());

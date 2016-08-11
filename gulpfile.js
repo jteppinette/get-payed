@@ -9,6 +9,7 @@ var gulp = require("gulp"),
     eslint = require("gulp-eslint"),
     ignore = require("gulp-ignore"),
     plumber = require("gulp-plumber"),
+    templateCache = require("gulp-angular-templatecache"),
     bowerFiles = require("main-bower-files");
 
 // index
@@ -17,6 +18,14 @@ gulp.task("index", function() {
         .pipe(plumber())
         .pipe(inject(gulp.src(bowerFiles(), {"base": "./build/bower_components", "read": false}),
                      {"name": "bower", "ignorePath": "build"}))
+        .pipe(gulp.dest("./build/"));
+});
+
+// templates
+gulp.task("templates", function() {
+    gulp.src("./app/**/*.html")
+        .pipe(plumber())
+        .pipe(templateCache("templates.js", {module: "templates", standalone: true}))
         .pipe(gulp.dest("./build/"));
 });
 
@@ -47,10 +56,11 @@ gulp.task("js", function() {
 });
 
 // main tasks
-gulp.task("build", ["index", "js", "sass", "assets"]);
+gulp.task("build", ["index", "templates", "js", "sass", "assets"]);
 
 gulp.task("watch", ["build"], function() {
     gulp.watch("./app/index.html", {interval: 500}, ["index"]);
+    gulp.watch("./app/**/*.html", {interval: 500}, ["templates"]);
     gulp.watch("./app/**/*.scss", {interval: 500}, ["sass"]);
     gulp.watch("./app/**/*.js", {interval: 500}, ["js"]);
 });
