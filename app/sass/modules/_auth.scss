@@ -1,9 +1,5 @@
 .auth {
-  @include gradient-radial($brand-ternary, darken($brand-ternary, 5));
-
   padding-top: 20px;
-  height: 100%;
-  width: 100%;
 
   .panel {
     @include center-block;

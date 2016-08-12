@@ -13,8 +13,11 @@
 //===========================
 
 html, body {
+  @include gradient-radial(lighten($brand-ternary, 5), $brand-ternary);
+
   height: 100%;
   width: 100%;
+  background-color: $brand-ternary;
   font-family: 'Lato', sans-serif;
 }
 
