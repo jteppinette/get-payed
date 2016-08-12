@@ -17,7 +17,7 @@ gulp.task("index", function() {
     gulp.src("./app/index.html")
         .pipe(plumber())
         .pipe(inject(gulp.src(bowerFiles(), {"base": "./build/bower_components", "read": false}),
-                     {"name": "bower", "ignorePath": "build"}))
+                     {"name": "bower", "ignorePath": "../build/", "relative": true}))
         .pipe(gulp.dest("./build/"));
 });
 
