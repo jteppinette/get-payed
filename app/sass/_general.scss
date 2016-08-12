@@ -1,0 +1,48 @@
+//===========================
+// mixins
+//===========================
+
+@mixin gradient($from, $to) {
+  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+  background: -moz-linear-gradient(top,  $from, $to);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
+}
+
+//===========================
+// general elements
+//===========================
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Lato', sans-serif;
+}
+
+
+//===========================
+// panels
+//===========================
+
+.panel {
+  border: 0px;
+}
+
+//===========================
+// buttons
+//===========================
+
+.btn-secondary {
+  @include button-variant(white, $brand-secondary, $brand-secondary);
+}
+
+
+//===========================
+// classes
+//===========================
+
+.vertical-center {
+  min-height: 100%; 
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}

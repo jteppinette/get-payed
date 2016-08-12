@@ -1,0 +1,18 @@
+.auth {
+  @include gradient-radial($brand-ternary, darken($brand-ternary, 5));
+
+  height: 100%;
+  width: 100%;
+
+  .panel {
+    @include center-block;
+
+    box-shadow: 0 10px 10px 3px #222;
+    width: 400px;
+    max-width: 95%;
+
+    .panel-heading h2 {
+      font-weight: lighter;
+    }
+  }
+}
