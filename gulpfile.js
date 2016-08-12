@@ -31,7 +31,7 @@ gulp.task("templates", function() {
 
 // assets
 gulp.task("assets", function() {
-    gulp.src("./app/assets/*")
+    gulp.src("./app/assets/**/*")
         .pipe(plumber())
         .pipe(gulp.dest("./build/assets"));
 });

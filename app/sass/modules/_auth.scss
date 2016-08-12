@@ -1,6 +1,7 @@
 .auth {
   @include gradient-radial($brand-ternary, darken($brand-ternary, 5));
 
+  padding-top: 20px;
   height: 100%;
   width: 100%;
 
@@ -10,9 +11,17 @@
     box-shadow: 0 10px 10px 3px #222;
     width: 400px;
     max-width: 95%;
+  }
 
-    .panel-heading h2 {
-      font-weight: lighter;
+  .logo {
+    text-align: center;
+    color: white;
+    padding-bottom: 30px;
+
+    img {
+      @include center-block;
+
+      height: 100px;
     }
   }
 }
