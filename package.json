@@ -34,5 +34,10 @@
     "gulp-sass": "^2.3.2",
     "gulp-watch": "^4.3.9",
     "main-bower-files": "^2.13.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "jsonwebtoken": "^7.1.9",
+    "mongoose": "^4.5.8"
   }
 }
