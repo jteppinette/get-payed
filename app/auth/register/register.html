@@ -1,18 +1,18 @@
-<div class="panel panel-primary">
+<div class="panel panel-primary register">
   <div class="panel-heading"><h2>Register</h2></div>
   <div class="panel-body">
-    <form class="register">
+    <form ng-submit="register.submit(register.credentials)">
 
       <!-- EMAIL -->
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="Email">
+        <input ng-model="register.credentials.email" type="email" class="form-control" id="email" placeholder="Email">
       </div>
 
       <!-- PASSWORD -->
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password">
+        <input ng-model="register.credentials.password" type="password" class="form-control" id="password" placeholder="Password">
       </div>
 
       <!-- SUBMIT -->
