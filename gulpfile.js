@@ -6,6 +6,7 @@ var gulp = require("gulp"),
     concat = require("gulp-concat"),
     watch = require("gulp-watch"),
     annotate = require("gulp-ng-annotate"),
+    ignore = require("gulp-ignore"),
     eslint = require("gulp-eslint"),
     ignore = require("gulp-ignore"),
     plumber = require("gulp-plumber"),
@@ -46,23 +47,33 @@ gulp.task("sass", function() {
 
 // js
 gulp.task("js", function() {
-    gulp.src("./app/**/*.js")
+    gulp.src(["./app/**/*.js"])
         .pipe(plumber())
         .pipe(eslint())
         .pipe(eslint.format())
+        .pipe(ignore.exclude("*.module.js"))
         .pipe(concat("app.js"))
         .pipe(annotate())
         .pipe(gulp.dest("./build/"));
 });
 
+
+// modules
+gulp.task("modules", function() {
+    gulp.src("./app/**/*.module.js")
+        .pipe(plumber())
+        .pipe(concat("modules.js"))
+        .pipe(gulp.dest("./build/"));
+});
+
 // main tasks
-gulp.task("build", ["index", "templates", "js", "sass", "assets"]);
+gulp.task("build", ["index", "templates", "js", "modules", "sass", "assets"]);
 
 gulp.task("watch", ["build"], function() {
     gulp.watch("./app/index.html", {interval: 500}, ["index"]);
     gulp.watch("./app/**/*.html", {interval: 500}, ["templates"]);
     gulp.watch("./app/**/*.scss", {interval: 500}, ["sass"]);
-    gulp.watch("./app/**/*.js", {interval: 500}, ["js"]);
+    gulp.watch("./app/**/*.js", {interval: 500}, ["js", "modules"]);
 });
 
 // default task

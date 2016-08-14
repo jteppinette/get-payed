@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app', ['ui.bootstrap', 'ui.router', 'templates'])
+        .module('app')
         .config(Config);
 
     function Config($stateProvider, $urlRouterProvider) {
@@ -14,9 +14,16 @@
             })
                 .state('auth.login', {
                     url: "/login",
+                    controller: 'LoginController',
+                    controllerAs: 'login',
                     templateUrl: "auth/login/login.html"
+                }) 
+                .state('auth.register', {
+                    url: "/register",
+                    controller: 'RegisterController',
+                    controllerAs: 'register',
+                    templateUrl: "auth/register/register.html"
                 }) ;
     }
-
 
 }());
