@@ -5,7 +5,7 @@
         .module('auth.register')
         .controller('RegisterController', RegisterController);
 
-    function RegisterController($http) {
+    function RegisterController($http, localStorageService) {
         var vm = this;
 
         vm.submit = submit;
@@ -16,7 +16,11 @@
         };
 
         function submit(credentials) {
-            return $http.post("api/auth/register", credentials);
+            return $http.post("api/auth/register", credentials)
+                .then(function(http) {
+                    localStorageService.set('token', http.data.token);
+                    localStorageService.set('email', http.data.email);
+                });
         }
     }
 

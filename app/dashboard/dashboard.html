@@ -1,0 +1,32 @@
+<div class="dashboard">
+
+  <!-- NAVIGATION -->
+  <nav class="navbar navbar-default" role="navigation" ng-init="collapsed=true">
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" ng-click="collapsed=!collapsed">
+          <span class="sr-only">Toggle Navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" ui-sref="dashboard.overview">Get Payed</a>
+      </div>
+
+      <div class="navbar-collapse" collapse="collapsed">
+        <ul class="nav navbar-nav">
+          <li ui-sref-active="active"><a ui-sref="dashboard.overview">Overview</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href ng-click="dashboard.logout()">Logout</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- UI VIEW -->
+  <ui-view></ui-view>
+
+</div>

@@ -5,9 +5,12 @@
         'ui.bootstrap',
         'ui.router',
 
+        'LocalStorageModule',
+
         'templates',
 
-        'auth'
+        'auth',
+        'dashboard'
     ]);
 
 }());

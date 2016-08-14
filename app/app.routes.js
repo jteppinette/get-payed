@@ -3,9 +3,9 @@
 
     angular
         .module('app')
-        .config(Config);
+        .config(Routes);
 
-    function Config($stateProvider, $urlRouterProvider) {
+    function Routes($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/login");
         $stateProvider
             .state('auth', {
@@ -23,7 +23,19 @@
                     controller: 'RegisterController',
                     controllerAs: 'register',
                     templateUrl: "auth/register/register.html"
-                }) ;
+                })
+
+            .state('dashboard', {
+                templateUrl: "dashboard/dashboard.html",
+                abstract: true
+            })
+                .state('dashboard.overview', {
+                    url: "/overview",
+                    controller: 'OverviewController',
+                    controllerAs: 'overview',
+                    templateUrl: "dashboard/overview/overview.html"
+                });
+
     }
 
 }());
