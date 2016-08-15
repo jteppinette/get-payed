@@ -4,6 +4,7 @@ var EventEmitter = require('events').EventEmitter,
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
+    bcrypt = require('bcrypt-nodejs'),
     config = require('./config'),
     User = require('./models/user');
 
@@ -39,7 +40,7 @@ class GetPayed extends EventEmitter {
             }, function(err, user) {
                 if (err) throw err;
                 if (!user) return renderErr(res, 401, "USER_NOT_FOUND");
-                if (user.password != req.body.password) return renderErr(res, 401, "INVALID_CREDS");
+                if (!bcrypt.compareSync(req.body.password, user.password)) return renderErr(res, 401, "INVALID_CREDS");
                 var token = jwt.sign(user, config.secret, {
                     expiresIn: "1d"
                 });
@@ -54,7 +55,7 @@ class GetPayed extends EventEmitter {
             if (!req.body.email || !req.body.password) return renderErr(res, 400, "MALFORMED_CREDS");
             var u = new User({
                 email: req.body.email,
-                password: req.body.password
+                password: bcrypt.hashSync(req.body.password)
             });
             u.save(function(err) {
                 if (err) throw err;

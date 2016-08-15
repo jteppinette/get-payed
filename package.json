@@ -36,6 +36,7 @@
     "main-bower-files": "^2.13.1"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.5.8"
