@@ -49,8 +49,13 @@
                     controller: 'OverviewController',
                     controllerAs: 'overview',
                     templateUrl: "dashboard/overview/overview.html"
+                })
+                .state('dashboard.payments', {
+                    url: "/payments",
+                    controller: 'PaymentsController',
+                    controllerAs: 'payments',
+                    templateUrl: "dashboard/payments/payments.html"
                 });
-
     }
 
 }());

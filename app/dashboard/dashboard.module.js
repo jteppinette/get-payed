@@ -2,7 +2,8 @@
     'use strict';
 
     angular.module('dashboard', [
-        'dashboard.overview'
+        'dashboard.overview',
+        'dashboard.payments'
     ]);
 
 }());
