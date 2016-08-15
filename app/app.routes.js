@@ -27,6 +27,8 @@
 
             .state('dashboard', {
                 templateUrl: "dashboard/dashboard.html",
+                controller: 'DashboardController',
+                controllerAs: 'dashboard',
                 abstract: true
             })
                 .state('dashboard.overview', {

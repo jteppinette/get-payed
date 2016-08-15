@@ -5,7 +5,7 @@
         .module('auth.login')
         .controller('LoginController', LoginController);
 
-    function LoginController($http, localStorageService) {
+    function LoginController($http, $state, localStorageService) {
         var vm = this;
 
         vm.submit = submit;
@@ -20,6 +20,7 @@
                 .then(function(http) {
                     localStorageService.set('token', http.data.token);
                     localStorageService.set('email', http.data.email);
+                    $state.go('dashboard.overview');
                 });
         }
     }
