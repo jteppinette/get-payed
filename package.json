@@ -39,6 +39,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "jsonwebtoken": "^7.1.9",
-    "mongoose": "^4.5.8"
+    "mongoose": "^4.5.8",
+    "request": "^2.74.0"
   }
 }

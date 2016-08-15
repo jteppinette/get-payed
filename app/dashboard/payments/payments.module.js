@@ -1,6 +1,8 @@
 (function() {
     'use strict';
 
-    angular.module('dashboard.payments', []);
+    angular.module('dashboard.payments', [
+        'dashboard.payments.create'
+    ]);
 
 }());

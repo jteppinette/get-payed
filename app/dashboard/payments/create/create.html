@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h3 class="modal-title">New Payment</h3>
+</div>
+<div class="modal-body">
+
+  <!-- BALANCE FORM -->
+  <form>
+    <div class="form-group">
+      <label for="">Balance</label>
+      <div class="input-group">
+        <div class="input-group-addon">$</div>
+        <input ng-model="create.balance" type="number" class="form-control" id="balance" placeholder="Balance">
+        <div class="input-group-addon">.00</div>
+      </div>
+    </div>
+  </form>
+
+  <!-- BTC CONVERSION -->
+  <div ng-if="create.balance" class="text-center well">
+    <img src="assets/images/bitcoin.svg" height=50>
+    <p class="h1">{{create.balance * create.rate | number:10}}</p><small>BTC</small>
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="create.submit()">Submit</button>
+  <button class="btn btn-link" type="button" ng-click="create.cancel()">Cancel</button>
+</div>

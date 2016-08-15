@@ -5,6 +5,7 @@ var EventEmitter = require('events').EventEmitter,
     mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
     bcrypt = require('bcrypt-nodejs'),
+    request = require('request'),
     config = require('./config'),
     User = require('./models/user');
 
@@ -86,10 +87,17 @@ class GetPayed extends EventEmitter {
             });
         });
 
-        app.use('/api/users', function(rew, res, next) {
+        app.use('/api/users', function(req, res, next) {
             User.find({}, function(err, users) {
                 if (err) throw err;
                 res.json(users)
+            });
+        });
+
+        app.use('/api/rate', function(req, res, next) {
+            request('http://tbtc.blockr.io/api/v1/exchangerate/current', function (err, upstream, body) {
+                if (err || upstream.statusCode !== 200) return renderErr(res, 500, "UPSTREAM_FAILED");
+                res.json({rate: JSON.parse(body).data[0].rates.BTC})
             });
         });
 
