@@ -8,6 +8,8 @@
     function DashboardController($state, localStorageService) {
         var vm = this;
 
+        vm.collapsed = true;
+
         vm.logout = logout;
 
         function logout() {
