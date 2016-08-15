@@ -29,6 +29,19 @@
                 templateUrl: "dashboard/dashboard.html",
                 controller: 'DashboardController',
                 controllerAs: 'dashboard',
+                resolve: {
+                    auth: function($state, $q, $timeout, localStorageService) {
+                        var token = localStorageService.get('token');
+                        if (token) {
+                            return token;
+                        } else {
+                            $timeout(function() {
+                                $state.go('auth.login');
+                            });
+                            return $q.reject();
+                        }
+                    }
+                },
                 abstract: true
             })
                 .state('dashboard.overview', {
