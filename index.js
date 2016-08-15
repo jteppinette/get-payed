@@ -53,20 +53,26 @@ class GetPayed extends EventEmitter {
 
         app.use('/api/auth/register', function(req, res, next) {
             if (!req.body.email || !req.body.password) return renderErr(res, 400, "MALFORMED_CREDS");
-            var u = new User({
-                email: req.body.email,
-                password: bcrypt.hashSync(req.body.password)
-            });
-            u.save(function(err) {
+            User.findOne({
+                email: req.body.email
+            }, function(err, user) {
                 if (err) throw err;
-                var token = jwt.sign(u, config.secret, {
-                    expiresIn: "1d"
+                if (user) return renderErr(res, 400, "USER_ALREADY_EXISTS");
+                var u = new User({
+                    email: req.body.email,
+                    password: bcrypt.hashSync(req.body.password)
                 });
-                res.json({
-                    email: u.email,
-                    token: token
-                });
+                u.save(function(err) {
+                    if (err) throw err;
+                    var token = jwt.sign(u, config.secret, {
+                        expiresIn: "1d"
+                    });
+                    res.json({
+                        email: u.email,
+                        token: token
+                    });
 
+                });
             });
         });
 
