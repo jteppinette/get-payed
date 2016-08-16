@@ -5,7 +5,7 @@
         .module('dashboard.payments')
         .controller('PaymentsController', PaymentsController);
 
-    function PaymentsController($uibModal) {
+    function PaymentsController(PaymentsService) {
         var vm = this;
 
         vm.create = create;
@@ -19,14 +19,9 @@
         }
 
         function create() {
-            return $uibModal.open({
-                templateUrl: 'dashboard/payments/create/create.html',
-                controller: 'CreatePaymentsController',
-                controllerAs: 'create',
-                size: 'md'
-            }).result
+            PaymentsService.create()
                 .then(function(payment) {
-                    vm.payments.append(result);
+                    vm.payments.append(payment);
                 });
         }
     }

@@ -5,7 +5,7 @@
         .module('dashboard.account')
         .controller('AccountController', AccountController);
 
-    function AccountController($http, $scope, localStorageService) {
+    function AccountController($scope, AccountService, localStorageService) {
         var vm = this;
 
         vm.email = undefined;
@@ -22,18 +22,11 @@
         }
 
         function update(email, password, address) {
-            $http.post('api/account', {address: address, email: email, password: password})
-                .then(function(http) {
-                    var account = http.data;
-
+            AccountService.update(address, email, password)
+                .then(function(account) {
                     vm.email = account.email;
                     vm.address = account.address;
                     vm.password = undefined;
-
-                    localStorageService.set('token', account.token);
-                    localStorageService.set('email', account.email);
-                    localStorageService.set('address', account.address);
-
                     $scope.dashboard.email = account.email;
                 });
         }

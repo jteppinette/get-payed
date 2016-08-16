@@ -5,7 +5,7 @@
         .module('dashboard.payments.create')
         .controller('CreatePaymentsController', CreatePaymentsController);
 
-    function CreatePaymentsController($http) {
+    function CreatePaymentsController(PaymentsService) {
         var vm = this;
 
         vm.balance = undefined;
@@ -14,9 +14,9 @@
         initialize();
 
         function initialize() {
-            $http.get('api/rate')
-                .then(function(http) {
-                    vm.rate = http.data.rate;
+            PaymentsService.getRate()
+                .then(function(rate) {
+                    vm.rate = rate;
                 });
         }
     }
