@@ -15,14 +15,18 @@
     </div>
   </form>
 
+  <!-- INSTRUCTIONS -->
+  <div ng-if="create.balance">
+    <p>Scan the QR code below with your bitcoin wallet software, or send the bitcoin amount below to {{create.address}} to transfer the neccessary funds.</p>
+  </div>
+
   <!-- BTC CONVERSION -->
   <div ng-if="create.balance" class="text-center well">
-    <img src="assets/images/bitcoin.svg" height=50>
     <p class="h1">{{create.balance * create.rate | number:10}} &#x0243</p>
+    <qrcode ng-if="create.balance" data="{{create.balance}}" size="200"></qrcode>
   </div>
 
 </div>
 <div class="modal-footer">
-  <button class="btn btn-primary" type="button" ng-click="create.submit()">Submit</button>
-  <button class="btn btn-link" type="button" ng-click="create.cancel()">Cancel</button>
+  <button class="btn btn-link" type="button" ng-click="$dismiss()">Cancel</button>
 </div>

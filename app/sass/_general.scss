@@ -48,3 +48,12 @@ h1, h2, h3, .h1, .h2, .h3 {
 .btn-secondary {
   @include button-variant(white, $brand-secondary, $brand-secondary);
 }
+
+
+//===========================
+// qrcode
+//===========================
+
+qrcode {
+  @include center-block;
+}

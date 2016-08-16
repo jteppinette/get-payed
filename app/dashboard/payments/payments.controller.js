@@ -19,10 +19,7 @@
         }
 
         function create() {
-            PaymentsService.create()
-                .then(function(payment) {
-                    vm.payments.append(payment);
-                });
+            PaymentsService.create();
         }
     }
 
