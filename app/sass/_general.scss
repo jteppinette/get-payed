@@ -17,10 +17,10 @@ h1, h2, h3, .h1, .h2, .h3 {
 
 
 //===========================
-// navigation
+// box shadow
 //===========================
 
-.navbar {
+.navbar, .panel, .alert {
   box-shadow: 0 10px 10px 3px #222;
 }
 
@@ -31,7 +31,6 @@ h1, h2, h3, .h1, .h2, .h3 {
 
 .panel {
   border: 0px;
-  box-shadow: 0 10px 10px 3px #222;
 
   .action-bar {
     @include clearfix();
