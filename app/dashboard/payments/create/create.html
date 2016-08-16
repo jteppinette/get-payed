@@ -23,7 +23,7 @@
   <!-- BTC CONVERSION -->
   <div ng-if="create.balance" class="text-center well">
     <p class="h1">{{create.balance * create.rate | number:10}} &#x0243</p>
-    <qrcode ng-if="create.balance" data="{{create.balance}}" size="200"></qrcode>
+    <qrcode ng-if="create.balance" data="bitcoin:{{create.address}}?amount={{create.balance*create.rate}}" size="200"></qrcode>
   </div>
 
 </div>
