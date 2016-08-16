@@ -30,13 +30,16 @@
                 controller: 'DashboardController',
                 controllerAs: 'dashboard',
                 resolve: {
-                    auth: function($state, $q, $timeout, localStorageService) {
+                    auth: function($state, $q, $timeout, localStorageService, toastr) {
                         var token = localStorageService.get('token');
                         if (token) {
                             return token;
                         } else {
                             $timeout(function() {
-                                $state.go('auth.login');
+                                $state.go('auth.login')
+                                    .then(function() {
+                                        toastr.error("A session token is required to view this page. You have been redirected to the login page.", "Authentication Failure");
+                                    });
                             });
                             return $q.reject();
                         }

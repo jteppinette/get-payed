@@ -5,7 +5,7 @@
         .module('dashboard.account')
         .factory('AccountService', AccountService);
 
-    function AccountService($http, localStorageService) {
+    function AccountService($http, $q, localStorageService, toastr) {
         return {
             update: update
         };
@@ -17,7 +17,12 @@
                     localStorageService.set('token', account.token);
                     localStorageService.set('email', account.email);
                     localStorageService.set('address', account.address);
+                    toastr.success("Your account has been updated.", "Account Update Successful");
                     return account;
+                })
+                .catch(function(err) {
+                    toastr.success(err.data.msg, "Account Update Failure");
+                    return $q.reject(err);
                 });
 
         }
