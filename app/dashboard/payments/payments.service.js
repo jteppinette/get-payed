@@ -18,9 +18,7 @@
             var socket = io('http://localhost:3001');
             socket.on('bitcoind/addresstxid', function(data) {
                 var address = bitcore.Address(data.address);
-                console.log("NEW TRANSACTION");
                 if (address.toString() == localStorageService.get('address')) {
-                    console.log("REFRESH PAYMENTS");
                     $rootScope.$broadcast('payments:refresh');
                 }
             });
