@@ -39,7 +39,7 @@ class GetPayed extends EventEmitter {
             User.findOne({
                 email: req.body.email
             }, function(err, user) {
-                if (err) throw err;
+                if (err) return renderErr(res, 500, "DB_GET_USER_FAILURE");
                 if (!user) return renderErr(res, 401, "USER_NOT_FOUND");
                 if (!bcrypt.compareSync(req.body.password, user.password)) return renderErr(res, 401, "INVALID_CREDS");
                 var token = jwt.sign(user, config.secret, {
@@ -58,14 +58,14 @@ class GetPayed extends EventEmitter {
             User.findOne({
                 email: req.body.email
             }, function(err, user) {
-                if (err) throw err;
+                if (err) return renderErr(res, 500, "DB_GET_USER_FAILURE");
                 if (user) return renderErr(res, 400, "USER_ALREADY_EXISTS");
                 var u = new User({
                     email: req.body.email,
                     password: bcrypt.hashSync(req.body.password)
                 });
                 u.save(function(err) {
-                    if (err) throw err;
+                    if (err) return renderErr(res, 500, "DB_SAVE_USER_FAILURE");
                     var token = jwt.sign(u, config.secret, {
                         expiresIn: "1d"
                     });
@@ -90,20 +90,20 @@ class GetPayed extends EventEmitter {
 
         app.use('/api/users', function(req, res, next) {
             User.find({}, function(err, users) {
-                if (err) throw err;
+                if (err) return renderErr(res, 500, "DB_GET_USERS_FAILURE");
                 res.json(users)
             });
         });
 
         app.use('/api/account', function(req, res, next) {
             User.findById(req.decoded._id, function(err, user) {
-                if (err) throw err;
+                if (err) return renderErr(res, 500, "DB_GET_USER_FAILURE");
                 if (!user) return renderErr(res, 400, "USER_NOT_FOUND");
                 user.address = req.body.address || user.address;
                 user.email = req.body.email || user.email;
                 user.password = req.body.password ? bcrypt.hashSync(req.body.password) : user.password;
                 user.save(function(err) {
-                    if (err) throw err;
+                    if (err) return renderErr(res, 500, "DB_SAVE_USER_FAILURE");
                     var token = jwt.sign(user, config.secret, {
                         expiresIn: "1d"
                     });
