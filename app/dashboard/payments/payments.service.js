@@ -5,7 +5,7 @@
         .module('dashboard.payments')
         .factory('PaymentsService', PaymentsService)
 
-    function PaymentsService($rootScope, $http, $uibModal, localStorageService) {
+    function PaymentsService($rootScope, $http, $uibModal, $q, localStorageService, toastr) {
         initialize();
         return {
             create: create,
@@ -38,6 +38,10 @@
             return $http.get('api/history', {params: {address: localStorageService.get('address')}})
                 .then(function(http) {
                     return http.data.items;
+                })
+                .catch(function(err) {
+                    toastr.error(err.data.msg, "Payments History Failure");
+                    return $q.reject(err);
                 });
         }
 
@@ -45,6 +49,10 @@
             return $http.get('api/rate')
                 .then(function(http) {
                     return http.data.rate;
+                })
+                .catch(function(err) {
+                    toastr.error(err.data.msg, "Rate Retrieval Failure");
+                    return $q.reject(err);
                 });
         }
     }
