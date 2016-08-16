@@ -1,4 +1,11 @@
 <div class="container">
+
+  <!-- ADDRESS REQUIRED ALERT -->
+  <div ng-if="!payments.address" class="alert alert-warning" role="alert">
+    <strong>Warning!</strong> You are required to have a bitcoin address on record.
+    You can set your address on the <a ui-sref="dashboard.account" class="alert-link">Account</a> page.
+  </div>
+
   <div class="panel panel-primary overview">
     <div class="panel-heading action-bar">
       <button ng-click="payments.create()" type="button" class="btn btn-secondary pull-right">New Payment</button>
