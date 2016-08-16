@@ -20,12 +20,16 @@
         }
     }
 
-    function Config($injector, $httpProvider, localStorageServiceProvider) {
+    function Config($injector, $httpProvider, localStorageServiceProvider, toastrConfig) {
         localStorageServiceProvider
             .setPrefix('get-payed')
             .setStorageType('sessionStorage');
 
         $httpProvider.interceptors.push('AuthInterceptor');
+
+        angular.extend(toastrConfig, {
+            positionClass: "toast-bottom-right"
+        });
     }
 
 }());

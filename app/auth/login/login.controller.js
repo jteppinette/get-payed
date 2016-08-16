@@ -14,13 +14,9 @@
             email: undefined,
             password: undefined
         };
-        vm.error = undefined;
 
         function submit(credentials) {
-            return AuthService.login(credentials.email, credentials.password)
-                .catch(function(err) {
-                    vm.error = err.data;
-                });
+            return AuthService.login(credentials.email, credentials.password);
         }
     }
 

@@ -5,6 +5,8 @@
         'ui.bootstrap',
         'ui.router',
 
+        'toastr',
+
         'LocalStorageModule',
 
         'templates',
