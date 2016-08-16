@@ -20,7 +20,9 @@ const MALFORMED_CREDS = {code: "MALFORMED_CREDS", msg: "The necessary credential
       USER_ALREADY_EXISTS = {code: "USER_ALREADY_EXISTS", msg: "The provided user already exists."},
       UPSTREAM_FAILED = {code: "UPSTREAM_FAILED", msg: "The upstream request failed."},
       TOKEN_REQUIRED = {code: "TOKEN_REQUIRED", msg: "The necessary token is missing."},
-      TOKEN_INVALID = {code: "TOKEN_INVALID", msg: "The provided token is invalid."};
+      TOKEN_INVALID = {code: "TOKEN_INVALID", msg: "The provided token is invalid."},
+      ADDRESS_REQUIRED = {code: "ADDRESS_REQUIRED", msg: "An address query parameter is required to look up an address history."},
+      NODE_ADDRESS_HISTORY_FAILURE = {code: "NODE_ADDRESS_HISTORY_FAILURE", msg: "The node was unable to retreive the provided addresses history."};
 
 
 class GetPayed extends EventEmitter {
@@ -39,6 +41,8 @@ class GetPayed extends EventEmitter {
     }
 
     setupRoutes(app, express) {
+        var self = this;
+
         app.use(bodyParser.urlencoded({extended: false}));
         app.use(bodyParser.json());
 
@@ -135,6 +139,17 @@ class GetPayed extends EventEmitter {
             });
         });
 
+        app.use('/api/history', function(req, res, next) {
+            if (!req.query.address) return renderErr(res, 400, ADDRESS_REQUIRED);
+            var options = {
+              queryMempool: true
+            };
+            self.node.services.bitcoind.getAddressHistory([req.query.address], options, function(err, history) {
+                if (!req.query.address) return renderErr(res, 400, NODE_ADDRESS_HISTORY_FAILURE);
+                res.json(history);
+            });
+        });
+
         app.use('/', function(req, res, next) {
             express.static(__dirname + '/build')(req, res, next);
         });
@@ -148,7 +163,7 @@ class GetPayed extends EventEmitter {
         return [];
     }
 
-    getPublishEventsfunction() {
+    getPublishEvents() {
       return [];
     }
 }

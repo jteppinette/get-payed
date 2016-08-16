@@ -4,8 +4,23 @@
       <button ng-click="payments.create()" type="button" class="btn btn-secondary pull-right">New Payment</button>
       <h2 class="panel-title">Payments</h2>
     </div>
-    <ul class="list-group">
-      <li ng-repeat="payment in payments.payments" class="list-group-item">{{payment.id}}</li>
-    </ul>
+    <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <th>Payment Satoshis</th>
+        <th>Fee Satoshis</th>
+        <th>Mined At</th>
+        <th>Confirmations</th>
+      </thead>
+      <tbody>
+        <tr ng-if="payment.satoshis > 0" ng-repeat="payment in payments.payments">
+          <td>{{payment.satoshis}}</td>
+          <td>{{payment.tx.feeSatoshis}}</td>
+          <td><span ng-if="payment.tx.blockTimestamp">{{payment.tx.blockTimestamp*1000 | date}}</span><span ng-if="!payment.tx.blockTimestamp">Pending...</span></td>
+          <td>{{payment.confirmations}}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
   </div>
 </div>

@@ -5,7 +5,7 @@
         .module('dashboard.payments')
         .controller('PaymentsController', PaymentsController);
 
-    function PaymentsController(PaymentsService) {
+    function PaymentsController($scope, PaymentsService) {
         var vm = this;
 
         vm.create = create;
@@ -15,7 +15,14 @@
         initialize();
 
         function initialize() {
-            vm.payments = [{id: 5}];
+            getList();
+            $scope.$on('payments:refresh', getList);
+            function getList() {
+                return PaymentsService.list()
+                    .then(function(payments) {
+                        vm.payments = payments;
+                    });
+            }
         }
 
         function create() {
