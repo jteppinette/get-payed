@@ -5,7 +5,7 @@
         .module('auth.login')
         .controller('LoginController', LoginController);
 
-    function LoginController($http, $state, localStorageService) {
+    function LoginController(AuthService) {
         var vm = this;
 
         vm.submit = submit;
@@ -17,13 +17,7 @@
         vm.error = undefined;
 
         function submit(credentials) {
-            return $http.post("api/auth/login", credentials)
-                .then(function(http) {
-                    localStorageService.set('token', http.data.token);
-                    localStorageService.set('email', http.data.email);
-                    localStorageService.set('address', http.data.address);
-                    $state.go('dashboard.overview');
-                })
+            return AuthService.login(credentials.email, credentials.password)
                 .catch(function(err) {
                     vm.error = err.data;
                 });

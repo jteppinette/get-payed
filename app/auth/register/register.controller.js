@@ -5,7 +5,7 @@
         .module('auth.register')
         .controller('RegisterController', RegisterController);
 
-    function RegisterController($http, $state, localStorageService) {
+    function RegisterController(AuthService) {
         var vm = this;
 
         vm.submit = submit;
@@ -17,13 +17,7 @@
         vm.error = undefined;
 
         function submit(credentials) {
-            return $http.post("api/auth/register", credentials)
-                .then(function(http) {
-                    localStorageService.set('token', http.data.token);
-                    localStorageService.set('email', http.data.email);
-                    localStorageService.set('address', http.data.address);
-                    $state.go('dashboard.overview');
-                })
+            return AuthService.register(credentials.email, credentials.password)
                 .catch(function(err) {
                     vm.error = err.data;
                 });
