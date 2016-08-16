@@ -9,8 +9,15 @@
         var vm = this;
 
         vm.collapsed = true;
+        vm.email = undefined;
 
         vm.logout = logout;
+
+        initialize();
+
+        function initialize() {
+            vm.email = localStorageService.get('email');
+        }
 
         function logout() {
             localStorageService.clearAll();

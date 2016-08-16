@@ -55,6 +55,12 @@
                     controller: 'PaymentsController',
                     controllerAs: 'payments',
                     templateUrl: "dashboard/payments/payments.html"
+                })
+                .state('dashboard.account', {
+                    url: "/account",
+                    controller: 'AccountController',
+                    controllerAs: 'account',
+                    templateUrl: "dashboard/account/account.html"
                 });
     }
 

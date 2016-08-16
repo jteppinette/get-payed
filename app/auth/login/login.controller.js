@@ -21,6 +21,7 @@
                 .then(function(http) {
                     localStorageService.set('token', http.data.token);
                     localStorageService.set('email', http.data.email);
+                    localStorageService.set('address', http.data.address);
                     $state.go('dashboard.overview');
                 })
                 .catch(function(err) {

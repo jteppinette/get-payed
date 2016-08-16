@@ -3,7 +3,8 @@
 
     angular.module('dashboard', [
         'dashboard.overview',
-        'dashboard.payments'
+        'dashboard.payments',
+        'dashboard.account'
     ]);
 
 }());

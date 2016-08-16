@@ -47,6 +47,7 @@ class GetPayed extends EventEmitter {
                 });
                 res.json({
                     email: user.email,
+                    address: user.address,
                     token: token
                 });
             });
@@ -82,7 +83,7 @@ class GetPayed extends EventEmitter {
             if (!token) return renderErr(res, 401, "TOKEN_REQUIRED");
             jwt.verify(token, config.secret, function(err, decoded) {
                 if (err) return renderErr(res, 401, "TOKEN_INVALID");
-                req.decoded = decoded;
+                req.decoded = decoded._doc;
                 next();
             });
         });
@@ -91,6 +92,27 @@ class GetPayed extends EventEmitter {
             User.find({}, function(err, users) {
                 if (err) throw err;
                 res.json(users)
+            });
+        });
+
+        app.use('/api/account', function(req, res, next) {
+            User.findById(req.decoded._id, function(err, user) {
+                if (err) throw err;
+                if (!user) return renderErr(res, 400, "USER_NOT_FOUND");
+                user.address = req.body.address || user.address;
+                user.email = req.body.email || user.email;
+                user.password = req.body.password ? bcrypt.hashSync(req.body.password) : user.password;
+                user.save(function(err) {
+                    if (err) throw err;
+                    var token = jwt.sign(user, config.secret, {
+                        expiresIn: "1d"
+                    });
+                    res.json({
+                        email: user.email,
+                        address: user.address,
+                        token: token
+                    });
+                });
             });
         });
 
