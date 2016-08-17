@@ -14,7 +14,6 @@ mongoose.connect(config.database);
 const MALFORMED_CREDS = {code: "MALFORMED_CREDS", msg: "The necessary credentials were either missing or malformed."},
       INVALID_CREDS = {code: "INVALID_CREDS", msg: "The provided credentials were invalid."},
       DB_GET_USER_FAILURE = {code: "DB_GET_USER_FAILURE", msg: "The database failed while attempting to retreive the requested user."},
-      DB_GET_USERS_FAILURE = {code: "DB_GET_USERS_FAILURE", msg: "The database failed while attempting to retreive the requested users."},
       DB_SAVE_USER_FAILURE = {code: "DB_SAVE_USER_FAILURE", msg: "The database failed while attempting to save the given user."},
       USER_DOES_NOT_EXIST = {code: "USER_DOES_NOT_EXIST", msg: "The requested user does not exist."},
       USER_ALREADY_EXISTS = {code: "USER_ALREADY_EXISTS", msg: "The provided user already exists."},
@@ -101,13 +100,6 @@ class GetPayed extends EventEmitter {
                 if (err) return renderErr(res, 401, TOKEN_INVALID);
                 req.decoded = decoded._doc;
                 next();
-            });
-        });
-
-        app.use('/api/users', function(req, res, next) {
-            User.find({}, function(err, users) {
-                if (err) return renderErr(res, 500, DB_GET_USERS_FAILURE);
-                res.json(users)
             });
         });
 
