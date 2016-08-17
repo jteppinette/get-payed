@@ -21,7 +21,7 @@ const MALFORMED_CREDS = {code: "MALFORMED_CREDS", msg: "The necessary credential
       TOKEN_REQUIRED = {code: "TOKEN_REQUIRED", msg: "The necessary token is missing."},
       TOKEN_INVALID = {code: "TOKEN_INVALID", msg: "The provided token is invalid."},
       ADDRESS_REQUIRED = {code: "ADDRESS_REQUIRED", msg: "An address query parameter is required to look up an address history."},
-      NODE_ADDRESS_HISTORY_FAILURE = {code: "NODE_ADDRESS_HISTORY_FAILURE", msg: "The node was unable to retreive the provided addresses history."};
+      NODE_ADDRESS_HISTORY_FAILURE = {code: "NODE_ADDRESS_HISTORY_FAILURE", msg: "The node was unable to retreive the provided addresses history."},
 
 
 class GetPayed extends EventEmitter {
@@ -131,13 +131,13 @@ class GetPayed extends EventEmitter {
             });
         });
 
-        app.use('/api/history', function(req, res, next) {
-            if (!req.query.address) return renderErr(res, 400, ADDRESS_REQUIRED);
+        app.use('/api/address/:addressId/history', function(req, res, next) {
+            if (!req.params.addressId) return renderErr(res, 400, ADDRESS_REQUIRED);
             var options = {
               queryMempool: true
             };
-            self.node.services.bitcoind.getAddressHistory([req.query.address], options, function(err, history) {
-                if (!req.query.address) return renderErr(res, 400, NODE_ADDRESS_HISTORY_FAILURE);
+            self.node.services.bitcoind.getAddressHistory([req.params.addressId], options, function(err, history) {
+                if (err) return renderErr(res, 400, NODE_ADDRESS_HISTORY_FAILURE);
                 res.json(history);
             });
         });

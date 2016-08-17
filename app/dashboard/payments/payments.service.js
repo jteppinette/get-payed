@@ -9,7 +9,6 @@
         initialize();
         return {
             create: create,
-            list: list,
             getRate: getRate
         };
 
@@ -32,17 +31,6 @@
                 controllerAs: 'create',
                 size: 'md'
             }).result;
-        }
-
-        function list() {
-            return $http.get('api/history', {params: {address: localStorageService.get('address')}})
-                .then(function(http) {
-                    return http.data.items;
-                })
-                .catch(function(err) {
-                    toastr.error(err.data.msg, "Payments History Failure");
-                    return $q.reject(err);
-                });
         }
 
         function getRate() {

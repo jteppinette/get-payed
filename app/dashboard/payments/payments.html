@@ -20,11 +20,11 @@
         <th>Confirmations</th>
       </thead>
       <tbody>
-        <tr ng-if="payment.satoshis > 0" ng-repeat="payment in payments.payments">
-          <td>{{payment.satoshis}}</td>
-          <td>{{payment.tx.feeSatoshis}}</td>
-          <td><span ng-if="payment.tx.blockTimestamp">{{payment.tx.blockTimestamp*1000 | date}}</span><span ng-if="!payment.tx.blockTimestamp">Pending...</span></td>
-          <td>{{payment.confirmations}}</td>
+        <tr ng-if="record.satoshis > 0" ng-repeat="record in payments.history">
+          <td>{{record.satoshis}}</td>
+          <td>{{record.tx.feeSatoshis}}</td>
+          <td><span ng-if="record.tx.blockTimestamp">{{record.tx.blockTimestamp*1000 | date}}</span><span ng-if="!record.tx.blockTimestamp">Pending...</span></td>
+          <td>{{record.confirmations}}</td>
         </tr>
       </tbody>
     </table>

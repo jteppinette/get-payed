@@ -4,7 +4,9 @@
     angular.module('dashboard', [
         'dashboard.overview',
         'dashboard.payments',
-        'dashboard.account'
+        'dashboard.account',
+
+        'dashboard.common.address'
     ]);
 
 }());
