@@ -5,7 +5,7 @@
         .module('dashboard.payments')
         .factory('PaymentsService', PaymentsService)
 
-    function PaymentsService($rootScope, $http, $uibModal, $q, localStorageService, toastr) {
+    function PaymentsService($rootScope, $http, $uibModal, $q, Constants, localStorageService, toastr) {
         initialize();
         return {
             create: create,
@@ -15,7 +15,7 @@
 
         function initialize() {
             var bitcore = require('bitcore-lib');
-            var socket = io('http://localhost:3001');
+            var socket = io(Constants.NODE_URL);
             socket.on('bitcoind/addresstxid', function(data) {
                 var address = bitcore.Address(data.address);
                 if (address.toString() == localStorageService.get('address')) {

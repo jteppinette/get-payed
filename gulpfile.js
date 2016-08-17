@@ -6,12 +6,14 @@ var gulp = require("gulp"),
     concat = require("gulp-concat"),
     watch = require("gulp-watch"),
     annotate = require("gulp-ng-annotate"),
+    replace = require("gulp-replace"),
     ignore = require("gulp-ignore"),
     eslint = require("gulp-eslint"),
     ignore = require("gulp-ignore"),
     plumber = require("gulp-plumber"),
     templateCache = require("gulp-angular-templatecache"),
-    bowerFiles = require("main-bower-files");
+    bowerFiles = require("main-bower-files"),
+    config = require("./config");
 
 // index
 gulp.task("index", function() {
@@ -53,10 +55,10 @@ gulp.task("js", function() {
         .pipe(eslint.format())
         .pipe(ignore.exclude("*.module.js"))
         .pipe(concat("app.js"))
+        .pipe(replace("{{NODE_URL}}", config.node))
         .pipe(annotate())
         .pipe(gulp.dest("./build/"));
 });
-
 
 // modules
 gulp.task("modules", function() {
