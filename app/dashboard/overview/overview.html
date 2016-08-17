@@ -6,12 +6,89 @@
     You can set your address on the <a ui-sref="dashboard.account" class="alert-link">Account</a> page.
   </div>
 
-  <!-- OVERVIEW -->
-  <div class="panel panel-primary overview">
-    <div class="panel-heading"><h2 class="panel-title">Overview</h2></div>
+  <!-- ADDRESS SUMMARY -->
+  <div ng-if="overview.address" class="panel panel-primary overview">
+    <div class="panel-heading"><h2 class="panel-title">Address Summary</h2></div>
     <div class="panel-body">
-      <h2>Welcome!</h2>
-      <p>Click on the payments link above to begin accepting new payments.</p>
+
+      <h2>Balances</h2>
+      <hr>
+
+      <!-- BALANCES -->
+      <div class="row">
+
+        <!-- BALANCE -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="well well-lg text-center">
+            <h2 class="panel-title">Balance</h2>
+            <h1>{{overview.summary.balance / 100000000}}<br> &#x0243</h1>
+          </div>
+        </div>
+
+        <!-- UNCONFIRMED BALANCE -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="well well-lg text-center">
+            <h2 class="panel-title">Unconfirmed Balance</h2>
+            <h1>{{overview.summary.unconfirmedBalance / 100000000}}<br> &#x0243</h1>
+          </div>
+        </div>
+
+        <!-- TOTAL RECEIVED -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="well well-lg text-center">
+            <h2 class="panel-title">Total Received</h2>
+            <h1>{{overview.summary.totalReceived / 100000000}}<br> &#x0243</h1>
+          </div>
+        </div>
+
+        <!-- TOTAL SPENT -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="well well-lg text-center">
+            <h2 class="panel-title">Total Spent</h2>
+            <h1>{{overview.summary.totalSpent / 100000000}}<br> &#x0243</h1>
+          </div>
+        </div>
+
+      </div>
+
+      <h2>Transactions</h2>
+      <hr>
+
+      <!-- TRANSACTIONS -->
+      <div class="row">
+
+        <!-- TRANSACTIONS -->
+        <div class="col-sm-6">
+          <div class="well well-lg text-center">
+            <h2 class="panel-title">Transactions</h2>
+            <h1>{{overview.summary.appearances}}</h1>
+          </div>
+        </div>
+
+        <!-- UNCONFIRMED TRANSACTIONS -->
+        <div class="col-sm-6">
+          <div class="well well-lg text-center">
+            <h2 class="panel-title">Unconfirmed Transactions</h2>
+            <h1>{{overview.summary.unconfirmedAppearances}}</h1>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TRANSACTIONS TABLE -->
+      <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <th>Transaction ID (click to view in <a href="http://tbtc.blockr.io/">block explorer</a>)</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="id in overview.summary.txids">
+            <td><a href="http://tbtc.blockr.io/tx/info/{{id}}">{{id}}</a></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
     </div>
   </div>
 

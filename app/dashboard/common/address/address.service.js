@@ -7,7 +7,8 @@
 
     function AddressService($http, $q, toastr) {
         return {
-            history: history
+            history: history,
+            summary: summary
         };
 
         function history(addressId) {
@@ -24,6 +25,22 @@
                     return $q.reject(err);
                 });
         }
+
+        function summary(addressId) {
+            if (!addressId) {
+                toastr.error("A valid bitcoin address is required.", "Address Summary Failure");
+                return $q.reject();
+            }
+            return $http.get('api/address/'+addressId+'/summary')
+                .then(function(http) {
+                    return http.data;
+                })
+                .catch(function(err) {
+                    toastr.error(err.data.msg, "Address Summary Failure");
+                    return $q.reject(err);
+                });
+        }
+
     }
 
 }());
